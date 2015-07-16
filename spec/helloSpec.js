@@ -1,5 +1,8 @@
-describe("A suite", function() {
-  it("contains spec with an expectation", function() {
-    expect(true).toBe(true);
+var greeter = require('../kata.js');
+
+describe("Greeter Test Suite", function() {
+  it("says Hello", function() {
+    var string = greeter.sayHello()
+    expect(string).toBe("Hello");
   });
 });
