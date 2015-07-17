@@ -7,7 +7,7 @@ Docs [here](http://agilekatas.co.uk/katas/romannumerals-kata).
 
 # Running
 Run
- `coffee -w -c converter.coffee`
+ `coffee -w -c .`
 to compile the coffeescript to javascript.
 
 Then run `npm test` to run the unit tests (Jasmine).
