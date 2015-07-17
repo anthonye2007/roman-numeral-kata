@@ -3,4 +3,7 @@
 
 module.exports =
   toRoman: (arabic) ->
-    return 2
+    switch arabic
+      when 1 then return "I"
+      else
+        console.log("Bad input: " + arabic)
