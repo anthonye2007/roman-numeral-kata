@@ -1,0 +1,25 @@
+{
+  "name": "converter",
+  "version": "1.0.0",
+  "description": "Converts between arabic and roman numerals",
+  "main": "converter.js",
+  "dependencies": {
+    "coffee-script": "^1.9.3"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.9.3"
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anthonye2007/roman-numeral-kata.git"
+  },
+  "author": "Anthony Elliott",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anthonye2007/roman-numeral-kata/issues"
+  },
+  "homepage": "https://github.com/anthonye2007/roman-numeral-kata#readme"
+}

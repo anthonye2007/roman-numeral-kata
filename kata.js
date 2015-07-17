@@ -3,6 +3,12 @@
 
 module.exports = {
   convertArabicToRoman: function (arabic) {
+    switch (arabic) {
+      case 1:
 
+        break;
+      default:
+        return null;
+    }
   }
 };
