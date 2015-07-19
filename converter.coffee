@@ -51,6 +51,16 @@ module.exports =
       remainder = input - highestRoman
       letter = romanValues[highestRoman]
 
+      # Try replacing in string if last four letters are the same
+      if str.length >= 4
+        if str[length - 1] is str[length - 2] is str[length - 3] is str[length - 4]
+          # find letter
+          # replace with letter and higher
+          currentLetter = str[length-1]
+          # TODO get next higher letter
+          # TODO replace last three letters with next higher number
+          # TODO example: 'IIII' -> 'IV'
+
       # should I subtract and add two letters?
       lowerRoman = findLowerRoman(highestRoman)
       if lowerRoman?
