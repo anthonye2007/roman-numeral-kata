@@ -10,3 +10,4 @@ describe "Converting Arabic to Roman numerals", ->
   test(5, "V")
   test(10, "X")
   test(3, "III")
+  test(4, "IV")
