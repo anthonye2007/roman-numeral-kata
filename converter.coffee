@@ -25,9 +25,19 @@ module.exports =
     convertToRoman = (input, str) ->
       findHighestRoman = ->
         highestRoman = array[0]
-        for value in array
+        for value, i in array
           highestRoman = value if value <= input and value > highestRoman
+
         return highestRoman
+
+      findLowerRoman = (highest) ->
+        for value in array
+          if value < highest
+            difference = highest - value
+            if input is difference
+              return value
+
+        return undefined
 
       # Happy end condition
       return str if input is 0
@@ -38,7 +48,17 @@ module.exports =
         return null
 
       highestRoman = findHighestRoman()
+      remainder = input - highestRoman
       letter = romanValues[highestRoman]
-      return convertToRoman(input - highestRoman, str += letter)
+
+      # should I subtract and add two letters?
+      lowerRoman = findLowerRoman(highestRoman)
+      if lowerRoman?
+        lowerLetter = romanValues[lowerRoman]
+        str += lowerLetter
+        difference = highestRoman - lowerRoman
+        remainder = input - difference
+
+      return convertToRoman(remainder, str += letter)
 
     convertToRoman(arabic, "")
