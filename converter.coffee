@@ -10,6 +10,15 @@ romanValues =
   "500": "D"
   "1000": "M"
 
+romanToArabic =
+  "I": 1
+  "V": 5
+  "X": 10
+  "L": 50
+  "C": 100
+  "D": 500
+  "M": 1000
+
 array = [
   1
   5
@@ -33,6 +42,14 @@ romanOrdering = [
 module.exports =
   toRoman: (arabic) ->
     convertToRoman = (input, str) ->
+      findIfSubtractable = ->
+        # The '1' symbols ('I', 'X', and 'C') can only be subtracted from the
+        # 2 next highest values ('IV' and 'IX', 'XL' and 'XC', 'CD' and 'CM')
+        added = input + 1
+        if added is 10 or added is 100
+          newStr = romanValues['1'] + romanValues[added]
+          return newStr
+
       findHighestRoman = ->
         highestRoman = array[0]
         for value, i in array
@@ -64,10 +81,16 @@ module.exports =
         console.error 'Went too far, input is now ' + input
         return null
 
-      highestRoman = findHighestRoman()
-      remainder = input - highestRoman
-      letter = romanValues[highestRoman]
-      str += letter
+      subtractableStrSegment = findIfSubtractable()
+
+      if subtractableStrSegment?
+        remainder = 0
+        str += subtractableStrSegment
+      else
+        highestRoman = findHighestRoman()
+        remainder = input - highestRoman
+        letter = romanValues[highestRoman]
+        str += letter
 
       # Try replacing in string if last four letters are the same
       # example: 'IIII' -> 'IV'
