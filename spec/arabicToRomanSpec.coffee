@@ -19,3 +19,8 @@ describe "Converting Arabic to Roman numerals", ->
   test(29, "XXIX")
   test(40, "XL")
   test(90, "XC")
+  test(99, "XCIX")
+  test(400, "CD")
+  test(900, "CM")
+  test(1066, "MLXVI")
+  test(1989, "MCMLXXXIX")
