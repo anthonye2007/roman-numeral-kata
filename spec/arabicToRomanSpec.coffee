@@ -15,3 +15,7 @@ describe "Converting Arabic to Roman numerals", ->
   test(11, "XI")
   test(14, "XIV")
   test(15, "XV")
+  test(19, "XIX")
+  test(29, "XXIX")
+  test(40, "XL")
+  test(90, "XC")

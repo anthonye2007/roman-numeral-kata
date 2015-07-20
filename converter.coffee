@@ -43,12 +43,24 @@ module.exports =
   toRoman: (arabic) ->
     convertToRoman = (input, str) ->
       findIfSubtractable = ->
+        testForX = ->
+          added = input + 10
+          if added is 100 or added is 1000
+            newStr = "X" + romanValues[added]
+            return newStr
+
+        testForI = ->
+          added = input + 1
+          if added is 10 or added is 100
+            newStr = "I" + romanValues[added]
+            return newStr
         # The '1' symbols ('I', 'X', and 'C') can only be subtracted from the
         # 2 next highest values ('IV' and 'IX', 'XL' and 'XC', 'CD' and 'CM')
-        added = input + 1
-        if added is 10 or added is 100
-          newStr = romanValues['1'] + romanValues[added]
-          return newStr
+        xVal = testForX()
+        if xVal?
+          return xVal
+        else
+          return testForI()
 
       findHighestRoman = ->
         highestRoman = array[0]
