@@ -7,7 +7,7 @@ describe "Converting Arabic to Roman numerals", ->
       expect(result).toBe(roman)
 
   test(1, "I")
-  test(5, "V")
-  test(10, "X")
   test(3, "III")
   test(4, "IV")
+  test(5, "V")
+  test(10, "X")
