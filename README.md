@@ -13,6 +13,7 @@ Dependencies:
 - jasmine (`npm install -g jasmine`)
 
 This should really be automated with Grunt for a one step build and tests...
+
 1. First install all dependencies, then `git clone` this repo, `cd` into it, and run `npm install`.
 1. Run `coffee -w -c .` to compile the coffeescript to javascript.
 1. Run `npm test` to run the unit tests to make sure everything passes.
