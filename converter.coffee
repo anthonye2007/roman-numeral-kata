@@ -92,6 +92,21 @@ module.exports =
           prevNum = val
         return null
 
+      findValueOfSubtractableSegment = (str) ->
+        console.error 'Subtractable segment did not have length of 2: ' + str if str.length is not 2
+        highestLetter = subtractableStrSegment[1]
+        lowestLetter = subtractableStrSegment[0]
+        highestVal = romanToArabic[highestLetter]
+        subtractorVal = romanToArabic[lowestLetter]
+        return highestVal - subtractorVal
+
+      replaceEndingLettersWithHigherNumber = (str) ->
+        # example: 'IIII' -> 'IV'
+        currentLetter = str[str.length - 1]
+        nextRomanNumber = findNextRomanNumber currentLetter
+        # replace last three letters with next higher number
+        str = str.slice(0, -3) + nextRomanNumber
+
       # Happy end condition
       return str if input is 0
 
@@ -103,13 +118,7 @@ module.exports =
       subtractableStrSegment = findIfSubtractable()
 
       if subtractableStrSegment?
-        # always length of 2
-        highestLetter = subtractableStrSegment[1]
-        lowestLetter = subtractableStrSegment[0]
-        highestVal = romanToArabic[highestLetter]
-        subtractorVal = romanToArabic[lowestLetter]
-        value = highestVal - subtractorVal
-
+        value = findValueOfSubtractableSegment subtractableStrSegment
         remainder = input - value
         str += subtractableStrSegment
       else
@@ -118,14 +127,9 @@ module.exports =
         letter = arabicToRoman[highestRoman]
         str += letter
 
-      # Try replacing in string if last four letters are the same
-      # example: 'IIII' -> 'IV'
-      if str.length >= 4
-        if str[str.length - 1] is str[str.length - 2] is str[str.length - 3] is str[str.length - 4]
-          currentLetter = str[str.length - 1]
-          nextRomanNumber = findNextRomanNumber currentLetter
-          # replace last three letters with next higher number
-          str = str.slice(0, -3) + nextRomanNumber
+      areLastFourLettersTheSame = str.length >= 4 and
+          (str[str.length - 1] is str[str.length - 2] is str[str.length - 3] is str[str.length - 4])
+      str = replaceEndingLettersWithHigherNumber str if areLastFourLettersTheSame
 
       return convertToRoman(remainder, str)
 
