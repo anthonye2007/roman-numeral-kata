@@ -20,6 +20,16 @@ array = [
   1000
 ]
 
+romanOrdering = [
+  "I"
+  "V"
+  "X"
+  "L"
+  "C"
+  "D"
+  "M"
+]
+
 module.exports =
   toRoman: (arabic) ->
     convertToRoman = (input, str) ->
@@ -39,6 +49,13 @@ module.exports =
 
         return undefined
 
+      findNextRomanNumber = (num) ->
+        prevNum = null
+        for val, index in romanOrdering
+          return val if num is prevNum
+          prevNum = val
+        return null
+
       # Happy end condition
       return str if input is 0
 
@@ -50,25 +67,17 @@ module.exports =
       highestRoman = findHighestRoman()
       remainder = input - highestRoman
       letter = romanValues[highestRoman]
+      str += letter
 
       # Try replacing in string if last four letters are the same
+      # example: 'IIII' -> 'IV'
       if str.length >= 4
-        if str[length - 1] is str[length - 2] is str[length - 3] is str[length - 4]
-          # find letter
-          # replace with letter and higher
-          currentLetter = str[length-1]
-          # TODO get next higher letter
-          # TODO replace last three letters with next higher number
-          # TODO example: 'IIII' -> 'IV'
+        if str[str.length - 1] is str[str.length - 2] is str[str.length - 3] is str[str.length - 4]
+          currentLetter = str[str.length - 1]
+          nextRomanNumber = findNextRomanNumber currentLetter
+          # replace last three letters with next higher number
+          str = str.slice(0, -3) + nextRomanNumber
 
-      # should I subtract and add two letters?
-      lowerRoman = findLowerRoman(highestRoman)
-      if lowerRoman?
-        lowerLetter = romanValues[lowerRoman]
-        str += lowerLetter
-        difference = highestRoman - lowerRoman
-        remainder = input - difference
-
-      return convertToRoman(remainder, str += letter)
+      return convertToRoman(remainder, str)
 
     convertToRoman(arabic, "")
