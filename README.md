@@ -1,16 +1,18 @@
-Roman Numerals Kata
+Roman Numerals Converter
 ===
 
-Kata for Pillar Technologies interview.
+This program takes in an Arabic numeral (e.g. 1, 2, 3) and returns its equivalent Roman numeral (e.g. I, II, III).
 
 Docs [here](http://agilekatas.co.uk/katas/romannumerals-kata).
 
-# Running
-Run
- `coffee -w -c .`
-to compile the coffeescript to javascript.
+# Building
+Dependencies:
+- nodejs
+- npm
+- git
+- jasmine (`npm install -g jasmine`)
 
-Then run `npm test` to run the unit tests (Jasmine).
-
-# Dependencies
-There may be undeclared dependencies...
+This should really be automated with Grunt for a one step build and tests...
+1. First install all dependencies, then `git clone` this repo, `cd` into it, and run `npm install`.
+1. Run `coffee -w -c .` to compile the coffeescript to javascript.
+1. Run `npm test` to run the unit tests to make sure everything passes.
