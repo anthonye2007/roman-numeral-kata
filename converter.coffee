@@ -1,7 +1,7 @@
 # http://agilekatas.co.uk/katas/romannumerals-kata
 # Convert Arabic to Roman
 
-romanValues =
+arabicToRoman =
   "1": "I"
   "5": "V"
   "10": "X"
@@ -19,7 +19,7 @@ romanToArabic =
   "D": 500
   "M": 1000
 
-array = [
+arabicOrdering = [
   1
   5
   10
@@ -43,45 +43,41 @@ module.exports =
   toRoman: (arabic) ->
     convertToRoman = (input, str) ->
       findIfSubtractable = ->
-        testForC = ->
+        # These subtractions could be abstracted but due to edge cases and only have 3 I think its simpler
+        # to leave it in this straightforward manner.
+        trySubtractingC = ->
           added = input + 100
-          if added >= 1000 and added < 1100
-            newStr = "CM"
-            return newStr
+          return "CM" if added >= 1000 and added < 1100
 
-        testForX = ->
+        trySubtractingX = ->
           added = input + 10
-          if (added >= 100 and added < 110)
-            newStr = "XC"
-            return newStr
-          else if (added >= 50 and added < 60)
-            newStr = "XL"
-            return newStr
+          return "XC" if added >= 100 and added < 110
+          return "XL" if added >= 50 and added < 60
 
-        testForI = ->
+        trySubtractingI = ->
           added = input + 1
           if added is 5 or added is 10
-            newStr = "I" + romanValues[added]
-            return newStr
+            return "I" + arabicToRoman[added]
+
         # The '1' symbols ('I', 'X', and 'C') can only be subtracted from the
         # 2 next highest values ('IV' and 'IX', 'XL' and 'XC', 'CD' and 'CM')
-        cVal = testForC()
+        cVal = trySubtractingC()
         return cVal if cVal?
 
-        xVal = testForX()
+        xVal = trySubtractingX()
         return xVal if xVal?
 
-        return testForI()
+        return trySubtractingI()
 
       findHighestRoman = ->
-        highestRoman = array[0]
-        for value, i in array
+        highestRoman = arabicOrdering[0]
+        for value, i in arabicOrdering
           highestRoman = value if value <= input and value > highestRoman
 
         return highestRoman
 
       findLowerRoman = (highest) ->
-        for value in array
+        for value in arabicOrdering
           if value < highest
             difference = highest - value
             if input is difference
@@ -119,7 +115,7 @@ module.exports =
       else
         highestRoman = findHighestRoman()
         remainder = input - highestRoman
-        letter = romanValues[highestRoman]
+        letter = arabicToRoman[highestRoman]
         str += letter
 
       # Try replacing in string if last four letters are the same
